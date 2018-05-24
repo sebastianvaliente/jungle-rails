@@ -1,0 +1,14 @@
+<header class="page-header">
+  <h1>Admin &raquo; New Category</h1>
+</header>
+
+<%= form_for :category, url: admin_categories_path do |f| %>
+
+  <p>
+    <%= f.label :name %> <br>
+    <%= f.text_field :name %>
+  </p>
+
+    <%= f.submit 'Create Category', class: 'btn btn-primary' %>
+
+<% end %>
