@@ -26,10 +26,13 @@
           </ul>
         </li>
       </ul>
-      <ul class="nav navbar-nav navbar-right">
-       <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 
+      <ul class="nav navbar-nav navbar-right">
+
+      <% if !session[:user_id]  %>
+
+       <!-- <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
             <span class="text-danger"><%= fa_icon 'lock', text: 'Admin' %></span>
             <span class="caret"></span>
           </a>
@@ -38,7 +41,35 @@
             <li><%= link_to 'Products',  [:admin, :products] %></li>
             <li><%= link_to 'Categories',  [:admin, :categories] %></li>
           </ul>
+        </li> -->
+
+        <li class="dropdown">
+          <a href="/login" role="button" aria-haspopup="true" aria-expanded="false">
+            <span>Login</span>
+          </a>
         </li>
+
+        <li class="dropdown">
+          <a href="/user/register" role="button" aria-haspopup="true" aria-expanded="false">
+            <span>Register</span>
+          </a>
+        </li>
+
+      <% else %>
+
+      <li class="dropdown">
+        <a href="#" role="button" aria-haspopup="true" aria-expanded="false">
+          <span><%= fa_icon 'lock', text: 'User' %></span>
+        </a>
+      </li>
+
+      <li class="dropdown">
+        <a href="/logout"  role="button" aria-haspopup="true" aria-expanded="false">
+          <span>Logout</span>
+        </a>
+      </li>
+
+      <% end %>
         <li>
           <%= link_to cart_path do %>
             <%= fa_icon "shopping-cart" %> My Cart (<%= cart.size %>)
