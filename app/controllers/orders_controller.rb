@@ -2,14 +2,17 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
+    @line_items = @order.line_items
   end
 
   def create
+    @user = User.find(session[:user_id])
     charge = perform_stripe_charge
     order  = create_order(charge)
 
     if order.valid?
       empty_cart!
+      UserMailer.reciept_email(@user).deliver_later
       redirect_to order, notice: 'Your Order has been placed.'
     else
       redirect_to cart_path, flash: { error: order.errors.full_messages.first }
@@ -36,8 +39,9 @@ class OrdersController < ApplicationController
   end
 
   def create_order(stripe_charge)
+    user = User.find(session[:user_id])
     order = Order.new(
-      email: params[:stripeEmail],
+      email: user.email,
       total_cents: cart_total,
       stripe_charge_id: stripe_charge.id, # returned by stripe
     )

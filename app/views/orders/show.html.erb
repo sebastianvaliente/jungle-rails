@@ -5,9 +5,36 @@
   </header>
 
   <div class="order-summary jumbotron">
-    <h4>Thank you for your order!</h4>
+    <h4>Thank you for your order, <%= @order.email %> !</h4>
   </div>
 
   <%= link_to "Continue Shopping", root_path, class: 'btn btn-lg btn-primary' %>
 
+  <h3> Total <%= humanized_money_with_symbol @order.total_cents %> </h3>
+
 </section>
+
+<% @line_items.each do |i| %>
+  <div class="products">
+    <article class="product">
+      <header>
+        <%= link_to i.product do %>
+          <%= image_tag i.product.image.thumb, alt: i.product.name %>
+          <h4><%= i.product.name %></h4>
+          <% end %>
+        </header>
+        <p class="description">
+          <%= i.product.description %>
+        </p>
+        <footer class="actions">
+          <%= link_to i.product, class: 'btn btn-default pull-right' do %>
+          Details &raquo;
+          <% end %>
+        </footer>
+
+        <aside class="price">
+          <%= humanized_money_with_symbol i.product.price %>
+        </aside>
+      </article>
+    </div>
+<% end %>
