@@ -56,11 +56,13 @@
       <div class="col-sm-8">
         <dl class="dl-horizontal">
           <% @r.each do |r| %>
-          <% url = "review/" + r.id.to_s %>
-          <dt><%= r.user.first_name %> <%= r.user.last_name %></dt>
-          <dd>Rating: <%= r.rating %> </dd>
-          <dd><%= r.description %> </dd>
-          <dd> <%= link_to "Delete", url %> </dd>
+            <% url = "review/" + r.id.to_s %>
+            <dt><%= r.user.first_name %> <%= r.user.last_name %></dt>
+            <dd>Rating: <%= r.rating %> </dd>
+            <dd><%= r.description %> </dd>
+            <% if session[:user_id] == r.user_id %>
+              <dd> <%= link_to "Delete", url %> </dd>
+            <% end %>
           <% end %>
         </dl>
       </div>
