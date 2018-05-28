@@ -12,6 +12,8 @@
     <%= product.description %>
   </p>
   <footer class="actions">
+
+
     <%= link_to add_item_cart_path(product_id: product.id), class: 'btn btn-primary', method: :put do %>
       <%= fa_icon "shopping-cart", text: 'Add' %>
     <% end %>
@@ -19,6 +21,8 @@
       Details &raquo;
     <% end %>
   </footer>
+
+
 
   <aside class="price">
     <%= humanized_money_with_symbol product.price %>
